@@ -1,8 +1,9 @@
 @component('mail::message')
-  <strong>from {{$data['name']}}</strong>
+<h1>Thanks for creating an account with us</h1>
+  <strong>from {{$customer['name']}}</strong>
   <br>
-  <p>name: {{$data['name']}}</p>
+  <p>name: {{$customer['name']}}</p>
   <div>
-      {{$data['message']}}
+      {{$customer['message']}}
   </div>
 @endcomponent

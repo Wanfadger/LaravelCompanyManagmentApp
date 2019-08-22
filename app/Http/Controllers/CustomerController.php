@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Company;
 use App\Customer;
 use Illuminate\Http\Request ;
+use App\Events\NewCustomerEvent;
 use Illuminate\Support\Facades\Redirect;
 
 class CustomerController extends Controller
@@ -36,9 +37,10 @@ class CustomerController extends Controller
   public function store(){
 
     // dd($data);
-     Customer::create($this->validateRequestData());
-  
-     return redirect("/customers");
+    $customer =  Customer::create($this->validateRequestData());
+  //creating new customer event
+  event(new NewCustomerEvent($customer));
+    // return redirect("/customers");
   }
 
 public function show(Customer $customer){
@@ -69,12 +71,13 @@ public function delete(Customer $customer){
 }
 
 private function validateRequestData(){
-  $data =  request()->validate([
+  return  request()->validate([
     'name' => "required|min:3", 
     'email' => "required|email" ,
     "active" => "required" ,
     "company_id" => 'required'
   ]);
+  //return $data;
 }
 
 }
