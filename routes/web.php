@@ -22,7 +22,7 @@
 Route::view('layout' , 'layout.layout');
 //Route::view('contact-us' , 'pages.contact-us');
 // Route::view('/' , 'pages.home');
-Route::view('/about-us' , 'pages.about-us');
+Route::view('/about-us' , 'pages.about-us');//->middleware("test");
 //Route::view('/customers' , 'pages.customers');
  
 
