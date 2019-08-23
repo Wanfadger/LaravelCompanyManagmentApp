@@ -12,7 +12,7 @@ class CreateCompanyCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'new:company {name} {phone=N/A}';
+    protected $signature = 'new:company';
 
     /**
      * The console command description.
@@ -28,12 +28,16 @@ class CreateCompanyCommand extends Command
      */
     public function handle()
     {
-        $company = Company::create([
-            "name" => $this->argument('name') ,
-            "phone" => $this->argument('phone')
-        ]); 
-        $this->info($company->name." Successfully created company");
+        $name = $this->ask("Enter company name ?");
+        $phone = $this->ask("Enter phone number ?");
+        if($this->confirm("Are u sure u want to create ".$name." company")){
+            $company = Company::create([
+                "name" => $name,
+                "phone" => $phone
+            ]); 
+          return  $this->info($company->name." Successfully created company");
+        }
         // $this->error("Successfully errored company");
-        // $this->warn("Successfully warned company");
+        return $this->warn("failed to add  a company");
     }
 }
