@@ -28,9 +28,9 @@
 
            
             <div class="form-group">
-                <label for="status">Status</label>
+                <label for="status">select company</label>
                 <select class="form-control" id="company" name="company_id" form-control-sm value="{{old('company')}}" >
-                    <option value="" class="muted" disabled>select a company </option>
+                    <option value="" class="muted" active disabled>select a company </option>
                    @foreach($companies as $company)
                    <option value="{{$company->id}}">{{$company->name}}</option>
                    @endforeach

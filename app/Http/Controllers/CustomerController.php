@@ -19,28 +19,31 @@ class CustomerController extends Controller
 
   public function index(){
        
-        $customers = Customer::all();
+       // $customers = Customer::all();
         // $activeCustomers = Customer::active()->get();
         // $inActiveCustomers = Customer::inactive()->get();
         // $companies = Company::all();
       
         // dd($customers);
-         return view('customers.index' , compact('customers'));
+        $customers = Customer::with('company')->paginate(25);//lazy loading customer along with their company
+        // dd($customers->toArray()); 
+        return view('customers.index' , compact('customers'));
   }
 
   public function create(){
+
     $companies = Company::all();
     $customer = new Customer();
     return view("customers.create" ,compact('companies' , 'customer'));
   }
 
   public function store(){
-
+$this->authorize('create' , Customer::class );
     // dd($data);
     $customer =  Customer::create($this->validateRequestData());
   //creating new customer event
-  event(new NewCustomerEvent($customer));
-    // return redirect("/customers");
+   event(new NewCustomerEvent($customer));
+     return redirect("/customers");
   }
 
 public function show(Customer $customer){

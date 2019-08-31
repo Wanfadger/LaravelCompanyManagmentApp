@@ -3,7 +3,12 @@
 
 @section('main-content')
 <div class="container">
+  @can('create' , \App\Customer::class)
+  <div class="row pt-4">
 <a  class="btn btn-primary btn-sm mb-3"href="/create" >Add Customer</a>
+</div>
+  @endcan
+
     <div class="row">
         <div class="col-12">
         <table class="table">
@@ -40,6 +45,10 @@
   </tbody>
 </table>
         </div>
+    </div>
+
+    <div class="row ">
+      <div class="text-center d-flex justify-content-center ">{{$customers -> links()}}</div>
     </div>
 </div>
 @endsection

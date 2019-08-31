@@ -15,7 +15,7 @@ class sendWelcomeMessageListener
      */
     public function __construct()
     {
-        dd("your welcome sir/madam");
+       // dd("your welcome sir/madam");
     }
 
     /**
